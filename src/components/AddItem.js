@@ -14,14 +14,14 @@ const AddItem = React.forwardRef(({addElement = () => {}}, ref) => {
 
     return (
         <form className='py-2'>
-            <input
+            {/* <input
                 value={value}
                 className="input-class form-control-plaintext"
                 ref={ref}
                 autoFocus
                 onChange={e => setValue(e.target.value)}
                 onKeyPress={addElementOnEnter}
-            />
+            /> */}
         </form>
     )
 });
