@@ -1,0 +1,7 @@
+.line-divider {
+    border-bottom: 1px solid #efefef;
+}
+
+.completed {
+    text-decoration: line-through;
+}

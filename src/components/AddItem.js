@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
+import '../styles/AddItemStyle.css';
 
-export default function AddItem({addElement = () => {}}) {
+const AddItem = React.forwardRef(({addElement = () => {}}, ref) => {
     const [value, setValue] = useState('')
 
     const addElementOnEnter = (event) => {
@@ -12,8 +13,17 @@ export default function AddItem({addElement = () => {}}) {
     }
 
     return (
-        <form>
-            <input value={value} onChange={e => setValue(e.target.value)} onKeyPress={addElementOnEnter}/>
+        <form className='py-2'>
+            <input
+                value={value}
+                className="input-class form-control-plaintext"
+                ref={ref}
+                autoFocus
+                onChange={e => setValue(e.target.value)}
+                onKeyPress={addElementOnEnter}
+            />
         </form>
     )
-}
+});
+
+export default AddItem;
