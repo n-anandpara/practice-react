@@ -1,12 +1,11 @@
 import React from 'react'
 import ListRenderer from './ListRenderer';
-import AddItem from './AddItem';
 import '../styles/TodoApp.css';
 
 export default class TodoApp extends React.Component {
     constructor(props) {
         super(props)
-        this.state = { list: [] };
+        this.state = { list: [], value: '' };
         this.inputRef = React.createRef();
     }
 
@@ -28,7 +27,13 @@ export default class TodoApp extends React.Component {
     }
 
     inputFocus = () => {
-        this.inputRef.current.focus();
+        if (this.inputRef.current.value) {
+            this.addElement(this.inputRef.current.value)
+            this.setState({value: ''});
+            this.inputRef.current.focus();
+        } else {
+            this.inputRef.current.focus();
+        }
     }
 
     getByTitle = () => (
@@ -51,14 +56,33 @@ export default class TodoApp extends React.Component {
         this.setState({ list: tempList });
     }
 
+    addElementOnEnter = (event) => {
+        if (event.target.value && event.key === 'Enter') {
+            event.preventDefault();
+            this.setState({value: ''});
+            this.addElement(event.target.value);
+        } else if (!event.target.value && event.key === 'Enter') {
+            event.preventDefault();
+        }
+    }
+
     render() {
-        const { list } = this.state;
+        const { list, value } = this.state;
         return (
         <div className="container body" >
             {this.getByTitle()}
             <div className="mx-3">
                 <ListRenderer dataList={list} onComplete={this.onComplete} onDelete={this.onDelete} />
-                <AddItem addElement={this.addElement} ref={this.inputRef} />
+                <form className='py-2'>
+                    <input
+                        value={value}
+                        className="input-class form-control-plaintext"
+                        ref={this.inputRef}
+                        autoFocus
+                        onChange={e => this.setState({ value: e.target.value})}
+                        onKeyPress={this.addElementOnEnter}
+                    />
+                </form>
             </div> 
         </div>
         )

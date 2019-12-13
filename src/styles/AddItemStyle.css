@@ -1,8 +1,0 @@
-.input-class {
-    border-bottom: 1px solid #efefef;
-    color: #efefef;
-}
-
-.input-class:focus {
-    outline: none;
-}
